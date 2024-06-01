@@ -7,6 +7,7 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
 
+    
     private AudioSource bgmSource;//播放bgm的音频
 
     private void Awake()

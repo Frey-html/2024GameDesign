@@ -16,5 +16,8 @@ public class LoginUI : UIBase
     {
         //关闭login界面
         Close();
+
+        //战斗初始化
+        FightManager.Instance.ChangeType(FightType.Init);
     }
 }
