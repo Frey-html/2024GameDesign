@@ -13,6 +13,9 @@ public class GameApp:MonoBehaviour
         //初始化音频管理器
         AudioManager.Instance.Init();
 
+        //初始化用户信息
+        RoleManager.Instance.Init();
+
         //显示loginUI 创建的脚本名字记得跟预制体物体名字一致
         UIManager.Instance.ShowUI<LoginUI>("LoginUI");
 
