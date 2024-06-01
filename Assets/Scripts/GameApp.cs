@@ -6,7 +6,10 @@ using UnityEngine;
 public class GameApp:MonoBehaviour
 {
     void Start()
-    {
+    {   
+        //初始化配置表
+        GameConfigManager.Instance.Init();
+
         //初始化音频管理器
         AudioManager.Instance.Init();
 
@@ -15,5 +18,9 @@ public class GameApp:MonoBehaviour
 
         //播放bgm
         AudioManager.Instance.PlayBGM("bgm1");
+
+        //test
+        name = GameConfigManager.Instance.GetCardById("1001")["Name"];
+        Debug.Log(name);
     }
 }
