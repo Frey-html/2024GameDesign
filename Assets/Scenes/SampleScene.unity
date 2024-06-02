@@ -206,6 +206,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7ee8b28a2c241641a4f17de41582512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHp: 0
+  CurrentHp: 0
+  MaxPowerCount: 0
+  CurrentPowerCount: 0
+  DefenseCount: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

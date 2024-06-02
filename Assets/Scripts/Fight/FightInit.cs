@@ -6,7 +6,9 @@ using UnityEngine;
 public class FightInit : FightUnit
 {
     public override void Init()
-    {
+    {   
+        //初始化战斗数值
+        FightManager.Instance.Init();
         //切换bgm
         AudioManager.Instance.PlayBGM("battle");
         //显示战斗界面

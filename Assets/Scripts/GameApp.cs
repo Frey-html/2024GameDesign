@@ -22,8 +22,5 @@ public class GameApp:MonoBehaviour
         //播放bgm
         AudioManager.Instance.PlayBGM("bgm1");
 
-        //test
-        name = GameConfigManager.Instance.GetCardById("1001")["Name"];
-        Debug.Log(name);
     }
 }
