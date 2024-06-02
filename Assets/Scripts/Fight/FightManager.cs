@@ -30,8 +30,8 @@ public class FightManager : MonoBehaviour
 
     //初始化
     public void Init(){
-        MaxHp = 10;
-        CurrentHp = 10;
+        MaxHp = 50;
+        CurrentHp = 50;
         MaxPowerCount = 3;
         CurrentPowerCount = 3;
         DefenseCount = 10;

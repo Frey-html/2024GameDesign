@@ -10,7 +10,6 @@ public class GameConfigData
     public GameConfigData(string str)
     {
         dataDic = new List<Dictionary<string, string>>();
-
         //换行切割
         string[] lines = str.Split('\n');
         //第一行是存储数据的类型

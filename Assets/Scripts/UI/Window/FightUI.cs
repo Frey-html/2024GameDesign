@@ -20,7 +20,7 @@ public class FightUI : UIBase
         cardCountTxt = transform.Find("hasCard/icon/Text").GetComponent<Text>();
         noCardCountTxt = transform.Find("noCard/icon/Text").GetComponent<Text>();
         powerTxt = transform.Find("mana/Text").GetComponent<Text>();
-        hpTxt = transform.Find("hp/moneyTxt").GetComponent<Text>();
+        hpTxt = transform.Find("hp/hpTxt").GetComponent<Text>();
         hpImg = transform.Find("hp/fill").GetComponent<Image>();
         fyTxt = transform.Find("hp/fangyu/Text").GetComponent<Text>();
     }
