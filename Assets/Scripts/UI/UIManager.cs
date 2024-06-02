@@ -88,4 +88,20 @@ public class UIManager : MonoBehaviour
         }
         return null;
     }
+
+    //创建敌人头部的行动图标物体
+    public GameObject CreateActionIcon()
+    {
+        GameObject obj = Instantiate(Resources.Load("UI/actionIcon"),canvasTf) as GameObject;
+        obj.transform.SetAsLastSibling();//设置在父级的最后一位
+        return obj;
+    }
+
+    //创建敌人底部的行血量物体
+    public GameObject CreateHpItem()
+    {
+        GameObject obj = Instantiate(Resources.Load("UI/HpItem"),canvasTf) as GameObject;
+        obj.transform.SetAsLastSibling();//设置在父级的最后一位
+        return obj;
+    }    
 }
