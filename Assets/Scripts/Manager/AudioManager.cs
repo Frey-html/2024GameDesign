@@ -9,7 +9,7 @@ public class AudioManager : MonoBehaviour
 
     
     private AudioSource bgmSource;//播放bgm的音频
-
+    private AudioSource effectSource;//播放音效的音频
     private void Awake()
     {
         Instance = this;
@@ -19,6 +19,7 @@ public class AudioManager : MonoBehaviour
     public void Init() 
     { 
         bgmSource = gameObject.AddComponent<AudioSource>();
+        effectSource = gameObject.AddComponent<AudioSource>();
     }
 
     //播放bgm
@@ -26,11 +27,10 @@ public class AudioManager : MonoBehaviour
     {
         //加载bgm声音剪辑
         AudioClip clip = Resources.Load<AudioClip>("Sounds/BGM/" + name);
-
         bgmSource.clip = clip;//设置音频
-
         bgmSource.loop = isLoop;
-
+        bgmSource.volume = 0.5f;
+        bgmSource.priority = 0;
         bgmSource.Play();
     }
 
@@ -38,7 +38,7 @@ public class AudioManager : MonoBehaviour
     public void PlayEffect(string name)
     {
         AudioClip clip = Resources.Load<AudioClip>("Sounds/" + name);
-
-        AudioSource.PlayClipAtPoint(clip, transform.position);//播放
+        effectSource.priority = 1;
+        effectSource.PlayOneShot(clip);//播放音效，和bgm共用一个audioSource对象
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.EventSystems;
 
-public class CardItem:MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class CardItem:MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public Dictionary<string, string> data; //卡牌信息
 
@@ -42,6 +42,42 @@ public class CardItem:MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         transform.Find("bg").GetComponent<Image>().material.SetColor("_lineColor", Color.black);
         // 设置 "bg" 子元素的材质的线条宽度为 1
         transform.Find("bg").GetComponent<Image>().material.SetFloat("_lineWidth", 1);
+    }
+
+    Vector2 initPos;//拖拽开始时记录卡牌的位置
+    //开始拖拽
+    public virtual void OnBeginDrag(PointerEventData eventData)
+    {
+        initPos = transform.GetComponent<RectTransform>().anchoredPosition;
+
+        //播放声音
+        AudioManager.Instance.PlayEffect("Cards/draw");
+    }
+
+    //拖拽中
+    public virtual void OnDrag(PointerEventData eventData)
+    {
+        // 存储转换后的局部坐标
+        Vector2 pos;
+        // 将屏幕坐标转换为父容器的局部坐标
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            transform.parent.GetComponent<RectTransform>(), // 父容器的 RectTransform
+            eventData.position, // 当前指针的位置（屏幕坐标）
+            eventData.pressEventCamera, // 按下事件时的相机
+            out pos // 输出参数，将转换后的局部坐标存储在 pos 中
+            ))
+        {
+            // 如果转换成功，将当前对象的锚点位置设置为转换后的局部坐标
+            transform.GetComponent<RectTransform>().anchoredPosition = pos;
+        }
+    }
+
+
+    //结束拖拽
+    public virtual void OnEndDrag(PointerEventData eventData)
+    {
+        transform.GetComponent<RectTransform>().anchoredPosition = initPos;
+        transform.SetSiblingIndex(index);
     }
 
     private void Start()

@@ -104,7 +104,7 @@ public class UIManager : MonoBehaviour
     public GameObject CreateActionIcon()
     {
         GameObject obj = Instantiate(Resources.Load("UI/actionIcon"),canvasTf) as GameObject;
-        obj.transform.SetAsLastSibling();//设置在父级的最后一位
+        obj.transform.SetAsFirstSibling();//设置在父级的第一位 降低渲染优先级
         return obj;
     }
 
@@ -112,7 +112,7 @@ public class UIManager : MonoBehaviour
     public GameObject CreateHpItem()
     {
         GameObject obj = Instantiate(Resources.Load("UI/HpItem"),canvasTf) as GameObject;
-        obj.transform.SetAsLastSibling();//设置在父级的最后一位
+        obj.transform.SetAsFirstSibling();//设置在父级的第一位
         return obj;
     }
 
