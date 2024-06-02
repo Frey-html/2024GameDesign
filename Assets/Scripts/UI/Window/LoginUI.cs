@@ -12,7 +12,7 @@ public class LoginUI : UIBase
         Register("bg/startBtn").onClick = onStartGameBtn;
     }
 
-    private void onStartGameBtn(GameObject obj,PointerEventData pData)
+    private void onStartGameBtn(GameObject obj, PointerEventData pData)
     {
         //关闭login界面
         Close();
