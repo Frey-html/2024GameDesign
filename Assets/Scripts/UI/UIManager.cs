@@ -32,12 +32,10 @@ public class UIManager : MonoBehaviour
         {
             //集合中没有 需要从Resources/UI文件夹中更新
             GameObject obj = Instantiate(Resources.Load("UI/" + uiName) , canvasTf) as GameObject;
-
             //改名字
             obj.name = uiName;
             //添加需要的脚本
             ui = obj.AddComponent<T>();
-
             //添加到集合进行储存
             uiList.Add(ui);
         }
@@ -88,6 +86,16 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < uiList.Count; i++)
         {
             if (uiList[i].name == uiName) return uiList[i];
+        }
+        return null;
+    }
+
+    //获得界面的脚本
+    public T GetUI<T>(string uiName) where T : UIBase
+    {
+        UIBase ui = Find(uiName);
+        if(ui != null){
+            return ui.GetComponent<T>();
         }
         return null;
     }

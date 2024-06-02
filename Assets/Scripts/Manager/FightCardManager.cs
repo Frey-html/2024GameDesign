@@ -45,7 +45,7 @@ public class FightCardManager
     }
 
     //抽卡
-    public string DrawCard(string cardName)
+    public string DrawCard()
     {
         string id = cardList[cardList.Count - 1];
 

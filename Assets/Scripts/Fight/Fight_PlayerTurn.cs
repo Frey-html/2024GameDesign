@@ -12,6 +12,8 @@ public class Fight_PlayerTurn : FightUnit
         {
             Debug.Log("抽牌");
         });
+        UIManager.Instance.GetUI<FightUI>("FightUI").CreateCardItem(4);//抽四张牌
+        UIManager.Instance.GetUI<FightUI>("FightUI").UpdateCardItemPos();
     }
 
     public override void OnUpdate()
