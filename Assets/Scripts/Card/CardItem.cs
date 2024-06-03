@@ -78,7 +78,8 @@ public class CardItem:MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
         transform.GetComponent<RectTransform>().anchoredPosition = initPos;
         transform.SetSiblingIndex(index);
     }
-
+    
+    //判断当前费用是否满足卡牌使用条件，播放对应音效与提示，刷新文本
     public virtual bool TryUse()
     {
         //卡牌需要的费用
@@ -109,7 +110,7 @@ public class CardItem:MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     {
         GameObject effectObj = Instantiate(Resources.Load(data["Effects"])) as GameObject;
         effectObj.transform.position = pos;
-        Destroy(effectObj,2);
+        Destroy(effectObj, 2);
     }
 
     private void Start()
