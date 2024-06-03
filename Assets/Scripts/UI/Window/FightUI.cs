@@ -75,9 +75,10 @@ public class FightUI : UIBase
         for(int i = 0; i < count;i++){
             GameObject obj = Instantiate(Resources.Load("UI/CardItem"), transform) as GameObject;
             obj.GetComponent<RectTransform>().anchoredPosition = new UnityEngine.Vector2(-1000, -700);
-            var item = obj.AddComponent<CardItem>();
+            //var item = obj.AddComponent<CardItem>();
             string cardId = FightCardManager.Instance.DrawCard();
             Dictionary<string, string> data = GameConfigManager.Instance.GetCardById(cardId);
+            CardItem item = obj.AddComponent(System.Type.GetType(data["Script"])) as CardItem;
             item.Init(data);
             cardItemList.Add(item);
         }
