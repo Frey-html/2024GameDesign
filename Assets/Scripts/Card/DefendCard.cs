@@ -1,10 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 
-//é˜²å¾¡å¡ï¼ˆå¢åŠ æŠ¤ç›¾ï¼‰
+//·ÀÓù¿¨£¨Ôö¼Ó»¤¶Ü£©
 public class DefendCard : CardItem
 {
-
+    public override void OnEndDrag(PointerEventData eventData) 
+    {
+        if (TryUse() == true)
+        {
+            //Ê¹ÓÃĞ§¹ûÊıÖµ
+            int val = int.Parse(data["Arg0"]);
+            //²¥·ÅÊ¹ÓÃºóµÄÒôĞ§
+            AudioManager.Instance.PlayEffect("Effect/healspell");
+            //Ôö¼Ó»¤¶ÜÊıÖµ
+            FightManager.Instance.DefenseCount += val;
+            //Ë¢ĞÂ»¤¶ÜÎÄ±¾
+            UIManager.Instance.GetUI<FightUI>("FightUI").UpdateDefense();
+            Vector3 pos = Camera.main.transform.position;
+            pos.y = 0;
+            PlayEffect(pos);
+        }
+        else
+        {
+            base.OnEndDrag(eventData);
+        }
+    }
 }

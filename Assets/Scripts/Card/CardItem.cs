@@ -72,12 +72,44 @@ public class CardItem:MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
         }
     }
 
-
     //结束拖拽
     public virtual void OnEndDrag(PointerEventData eventData)
     {
         transform.GetComponent<RectTransform>().anchoredPosition = initPos;
         transform.SetSiblingIndex(index);
+    }
+
+    public virtual bool TryUse()
+    {
+        //卡牌需要的费用
+        int cost = int.Parse(data["Expend"]);
+
+        if (cost > FightManager.Instance.CurrentPowerCount)
+        {
+            //费用不足
+            AudioManager.Instance.PlayEffect("Effect/loss"); //使用失败音效
+            //提示
+            UIManager.Instance.ShowTip("费用不足", Color.red);
+            return false;
+        }
+        else
+        {
+            //减少费用
+            FightManager.Instance.CurrentPowerCount -= cost;
+            //刷新费用文本
+            UIManager.Instance.GetUI<FightUI>("FightUI").UpdatePower();
+            //使用的卡牌删除
+            UIManager.Instance.GetUI<FightUI>("FightUI").RemoveCard(this);
+            return true;
+        }
+    }
+
+    //创建卡牌使用后的特效
+    public void PlayEffect(Vector3 pos)
+    {
+        GameObject effectObj = Instantiate(Resources.Load(data["Effects"])) as GameObject;
+        effectObj.transform.position = pos;
+        Destroy(effectObj,2);
     }
 
     private void Start()

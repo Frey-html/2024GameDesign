@@ -103,4 +103,23 @@ public class FightUI : UIBase
             startPos.x = startPos.x + offset;
         }
     }
+
+    //将卡牌物体置入弃牌堆
+    public void RemoveCard(CardItem item)
+    {
+        AudioManager.Instance.PlayEffect("Cards/cardShove"); //出牌音效
+        item.enabled = false; //禁用卡牌逻辑
+        //添加到弃牌堆集合
+        FightCardManager.Instance.usedCardList.Add(item.data["Id"]);
+        //更新使用弃牌堆卡牌数量
+        noCardCountTxt.text = FightCardManager.Instance.usedCardList.Count.ToString();
+        //从手牌堆中移除该卡牌
+        cardItemList.Remove(item);
+        //刷新手牌渲染
+        UpdateCardItemPos();
+        //播放卡牌移动到弃牌堆动画
+        item.GetComponent<RectTransform>().DOAnchorPos(new Vector2(1000, -700), 0.25f);
+        item.transform.DOScale(0, 0.25f);
+        Destroy(item.gameObject, 1);
+    }
 }
