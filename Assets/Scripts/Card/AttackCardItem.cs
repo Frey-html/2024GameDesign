@@ -19,6 +19,11 @@ public class AttackCardItem : CardItem, IPointerDownHandler
     {
         //播放声音
         AudioManager.Instance.PlayEffect("Cards/draw");
+        //显示曲线界面
+        UIManager.Instance.ShowUI<LineUI>("LineUI");
+        //设置开始点位置
+        UIManager.Instance.GetUI<LineUI>("LineUI").SetStartPos(transform.GetComponent<RectTransform>().anchoredPosition);
+
         //隐藏鼠标
         Cursor.visible = false;
         //关闭所有协同程序
@@ -45,6 +50,8 @@ public class AttackCardItem : CardItem, IPointerDownHandler
                 out pos
                 ))
             {
+                //设置箭头位置
+                UIManager.Instance.GetUI<LineUI>("LineUI").SetEndPos(pos);
                 //进行射线检查是否碰到怪物
                 CheckRayToEnemy();
             }
@@ -54,6 +61,8 @@ public class AttackCardItem : CardItem, IPointerDownHandler
 
         //跳出循环后，显示鼠标
         Cursor.visible = true;
+         //关闭曲线界面
+        UIManager.Instance.CloseUI("LineUI");
     }
     Enemy hitEnemy;//射线检测到的敌人脚本
 
@@ -65,30 +74,35 @@ public class AttackCardItem : CardItem, IPointerDownHandler
         if(Physics.Raycast(ray, out hit, 10000, LayerMask.GetMask("Enemy")))
         {
             hitEnemy = hit.transform.GetComponent<Enemy>();
-            Debug.Log("Ray hit enemy:" + hitEnemy.name);
-            hitEnemy.OnSelect();//选中
-
-            //如果按下鼠标左键，使用攻击卡
-            if(Input.GetMouseButtonDown(0))
+            if(hitEnemy != null)
             {
-                //关闭所有协同程序
-                StopAllCoroutines();
-                //鼠标显示
-                Cursor.visible = true;
-                if(TryUse() == true)
+                Debug.Log("Ray hit enemy:" + hitEnemy.name);
+                hitEnemy.OnSelect();//选中
+                //如果按下鼠标左键，使用攻击卡
+                if(Input.GetMouseButtonDown(0))
                 {
-                    //播放特效
-                    PlayEffect(hitEnemy.transform.position);
-                    //打击音效
-                    AudioManager.Instance.PlayEffect("Effect/sword");
-                    //敌人受伤
-                    int val = int.Parse(data["Arg0"]);
-                    hitEnemy.Hit(val);
+                    //关闭所有协同程序
+                    StopAllCoroutines();
+                    //恢复鼠标显示
+                    Cursor.visible = true;
+                    //关闭曲线界面
+                    UIManager.Instance.CloseUI("LineUI");
+
+                    if(TryUse() == true)
+                    {
+                        //播放特效
+                        PlayEffect(hitEnemy.transform.position);
+                        //打击音效
+                        AudioManager.Instance.PlayEffect("Effect/sword");
+                        //敌人受伤
+                        int val = int.Parse(data["Arg0"]);
+                        hitEnemy.Hit(val);
+                    }
+                    //取消选中
+                    hitEnemy.OnUnSelect();
+                    //设置敌人脚本为null
+                    hitEnemy = null;
                 }
-                //取消选中
-                hitEnemy.OnUnSelect();
-                //设置敌人脚本为null
-                hitEnemy = null;
             }
         }
         else
