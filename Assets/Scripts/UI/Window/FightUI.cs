@@ -23,6 +23,7 @@ public class FightUI : UIBase
         hpTxt = transform.Find("hp/hpTxt").GetComponent<Text>();
         hpImg = transform.Find("hp/fill").GetComponent<Image>();
         fyTxt = transform.Find("hp/fangyu/Text").GetComponent<Text>();
+        transform.Find("turnBtn").GetComponent<Button>().onClick.AddListener(onChangeTurnBtn);
     }
 
     private void Start()
@@ -121,5 +122,23 @@ public class FightUI : UIBase
         item.GetComponent<RectTransform>().DOAnchorPos(new Vector2(1000, -700), 0.25f);
         item.transform.DOScale(0, 0.25f);
         Destroy(item.gameObject, 1);
+    }
+
+      public void RemoveAllCards()
+    {
+        for(int i = cardItemList.Count - 1;i >= 0; i--)
+        {
+            RemoveCard(cardItemList[i]);
+        }
+    }
+
+    //玩家回合结束，切换到敌人回合
+    private void onChangeTurnBtn()
+    {
+        //只有玩家回合才能切换
+        if(FightManager.Instance.fightUnit is Fight_PlayerTurn)
+        {
+            FightManager.Instance.ChangeType(FightType.Enemy);
+        }
     }
 }
