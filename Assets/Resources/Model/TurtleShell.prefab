@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 384963167903509423}
   - component: {fileID: 294303903982454257}
   - component: {fileID: 380256504665860783}
-  m_Layer: 9
+  m_Layer: 6
   m_Name: TurtleShell
   m_TagString: Untagged
   m_Icon: {fileID: 0}

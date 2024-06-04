@@ -30,4 +30,11 @@ public class EnemyManager
             enemy.Init(enemyData);
         }
     }
+
+    //敌人死亡后移除对应敌人实体
+    public void DeleteEnemy(Enemy enemy)
+    {
+        enemyList.Remove(enemy);
+        //后续做清场判定
+    }
 }

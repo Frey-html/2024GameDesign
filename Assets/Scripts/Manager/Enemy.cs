@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
     
     //组件相关
     SkinnedMeshRenderer _meshRenderer;
+    public Animator ani;
 
     public void Init(Dictionary<string, string> data)
     {
@@ -42,6 +43,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         _meshRenderer = transform.GetComponentInChildren<SkinnedMeshRenderer>();
+        ani = transform.GetComponent<Animator>();
 
         type = ActionType.None;
         hpItemObj = UIManager.Instance.CreateHpItem();
@@ -110,5 +112,43 @@ public class Enemy : MonoBehaviour
     public void OnUnSelect()
     {
         _meshRenderer.material.SetColor("_OtlColor", Color.black);
+    }
+
+    //受伤
+    public void Hit(int val)
+    {
+        //先扣护盾
+        if(Defend >= val)
+        {
+            Defend -= val;
+            //播放受伤动画
+            ani.Play("hit", 0, 0);
+        }
+        else
+        {
+            val = val - Defend;
+            Defend = 0;
+            CurHp -= val;
+            if(CurHp <= 0)
+            {
+                CurHp = 0;
+                //播放死亡动画
+                ani.Play("die");
+
+                //敌人从列表中移除
+                EnemyManager.Instance.DeleteEnemy(this);
+                Destroy(gameObject, 1);
+                Destroy(actionObj);
+                Destroy(hpItemObj);
+            }
+            else
+            {
+                //播放受伤动画
+                ani.Play("hit",0,0);
+            }
+        }
+        //刷新血量等ui
+        UpdateDefend();
+        UpdateHp();
     }
 }
