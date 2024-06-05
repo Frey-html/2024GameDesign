@@ -16,8 +16,9 @@ public class AddCard:CardItem
             if(FightCardManager.Instance.HasCard() == true)
             {
                 UIManager.Instance.GetUI<FightUI>("FightUI").CreateCardItem(val);
-
                 UIManager.Instance.GetUI<FightUI>("FightUI").UpdateCardItemPos();
+                UIManager.Instance.GetUI<FightUI>("FightUI").UpdateCardCount();
+
 
                 Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y,2.5f));
 

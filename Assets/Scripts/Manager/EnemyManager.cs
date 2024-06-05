@@ -37,6 +37,10 @@ public class EnemyManager
     {
         enemyList.Remove(enemy);
         //后续做清场判定
+         if(enemyList.Count == 0)
+        {
+            FightManager.Instance.ChangeType(FightType.Win);
+        }
     }
 
       //执行活着的怪物的行为
