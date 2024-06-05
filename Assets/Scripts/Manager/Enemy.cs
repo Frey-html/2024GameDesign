@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
+
 
 //敌人行动
 public enum ActionType
@@ -150,5 +152,51 @@ public class Enemy : MonoBehaviour
         //刷新血量等ui
         UpdateDefend();
         UpdateHp();
+    }
+
+    //隐藏怪物头上的行动标志
+    public void HideAction()
+    {
+        attackTf.gameObject.SetActive(false);
+        defendTf.gameObject.SetActive(false);
+    }
+
+    //执行敌人行动
+    public IEnumerator DoAction()
+    {
+        HideAction();
+        Debug.Log(transform.gameObject.name + "is doing action " + type);
+        
+        //等待某一时刻后的执行行为（也可以配置到excel）
+        yield return new WaitForSeconds(0.5f);//这里写死了
+
+        switch(type)
+        {
+            case ActionType.None:
+                break;
+
+            case ActionType.Defend:
+                //加防御
+                Defend += 1;
+                UpdateDefend();
+                //可以对应播放对应的特效,这里没有
+                break;
+
+            case ActionType.Attack:
+                //播放对应的动画（可以配置到excel表，这里都默认播放攻击）
+                ani.Play("attack");
+                //玩家扣血
+                FightManager.Instance.GetPlayerHit(Attack);
+                //摄像机可以抖一抖
+                Camera.main.DOShakePosition(0.1f, 0.2f, 5, 45);
+                break;
+
+            default:
+                break;
+        }
+        //等待动画播放完成
+        yield return new WaitForSeconds(1);
+        //继续播放待机动画
+        ani.Play("idle");
     }
 }
