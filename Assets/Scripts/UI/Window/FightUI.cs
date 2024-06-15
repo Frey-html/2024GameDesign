@@ -85,8 +85,7 @@ public class FightUI : UIBase
         }
     }
 
-    //更新卡牌位置
-    // 更新卡牌项的位置
+    // 更新卡牌的位置
     public void UpdateCardItemPos()
     {
         // 计算每张卡牌之间的水平偏移量，使它们在水平方向上均匀分布

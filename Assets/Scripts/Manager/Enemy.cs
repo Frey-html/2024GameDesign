@@ -167,8 +167,8 @@ public class Enemy : MonoBehaviour
         HideAction();
         Debug.Log(transform.gameObject.name + "is doing action " + type);
         
-        //等待某一时刻后的执行行为（也可以配置到excel）
-        yield return new WaitForSeconds(0.5f);//这里写死了
+        //等待某一时刻后的执行行为
+        yield return new WaitForSeconds(0.5f);
 
         switch(type)
         {
@@ -179,15 +179,15 @@ public class Enemy : MonoBehaviour
                 //加防御
                 Defend += 1;
                 UpdateDefend();
-                //可以对应播放对应的特效,这里没有
+                //可以对应播放对应的特效
                 break;
 
             case ActionType.Attack:
-                //播放对应的动画（可以配置到excel表，这里都默认播放攻击）
+                //播放对应的动画
                 ani.Play("attack");
                 //玩家扣血
                 FightManager.Instance.GetPlayerHit(Attack);
-                //摄像机可以抖一抖
+                //摄像机抖动
                 Camera.main.DOShakePosition(0.1f, 0.2f, 5, 45);
                 break;
 

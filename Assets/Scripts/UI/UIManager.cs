@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
 
     private Transform canvasTf;//画布的变换组件
 
-    private List<UIBase> uiList;
+    private List<UIBase> uiList;//UI实例列表，存储所有已载入的UI类型
 
 
     //关闭界面
@@ -24,7 +24,6 @@ public class UIManager : MonoBehaviour
         //初始化集合
         uiList = new List<UIBase>();
     }
-
     public UIBase ShowUI<T>(string uiName) where T : UIBase
     {
         UIBase ui = Find(uiName);
@@ -46,8 +45,7 @@ public class UIManager : MonoBehaviour
         }
         return ui;
     }
-
-    //隐藏
+    //隐藏UI
     public void HideUI(string uiName)
     {
         UIBase ui= Find(uiName);
@@ -56,7 +54,6 @@ public class UIManager : MonoBehaviour
             ui.Hide();
         }
     }
-
     //关闭所有界面
     public void CloseAllUI()
     {
@@ -67,8 +64,6 @@ public class UIManager : MonoBehaviour
 
         uiList.Clear();//清空集合
     }
-
-
     //关闭某个界面
     public void CloseUI(string uiName)
     {
@@ -79,7 +74,6 @@ public class UIManager : MonoBehaviour
             Destroy(ui.gameObject);
         }
     }
-
     //从集合中找到名字对应的界面脚本
      public UIBase Find(string uiName)
     {
@@ -89,7 +83,6 @@ public class UIManager : MonoBehaviour
         }
         return null;
     }
-
     //获得界面的脚本
     public T GetUI<T>(string uiName) where T : UIBase
     {
@@ -99,7 +92,6 @@ public class UIManager : MonoBehaviour
         }
         return null;
     }
-
     //创建敌人头部的行动图标物体
     public GameObject CreateActionIcon()
     {
@@ -107,7 +99,6 @@ public class UIManager : MonoBehaviour
         obj.transform.SetAsFirstSibling();//设置在父级的第一位 降低渲染优先级
         return obj;
     }
-
     //创建敌人底部的行血量物体
     public GameObject CreateHpItem()
     {
@@ -115,8 +106,7 @@ public class UIManager : MonoBehaviour
         obj.transform.SetAsFirstSibling();//设置在父级的第一位
         return obj;
     }
-
-    // 显示提示信息的方法
+    // 显示提示信息
     public void ShowTip(string msg, Color color, System.Action callback = null)
     {
         // 实例化一个提示预制体，并将其设置为画布的子对象
@@ -160,5 +150,4 @@ public class UIManager : MonoBehaviour
         // 在2秒后销毁提示对象
         MonoBehaviour.Destroy(obj, 2);
     }
-
 }

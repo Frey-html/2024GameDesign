@@ -42,7 +42,7 @@ public class FightManager : MonoBehaviour
         Instance = this;
     }
 
-    //切换战斗类型
+    //切换回合（战斗类型）
     public void ChangeType(FightType type)
     {
         switch(type)
