@@ -121,11 +121,11 @@ public class UIManager : MonoBehaviour
         // 设置提示信息内容
         text.text = msg;
         
-        // 定义第一个缩放动画，目标缩放为1，持续时间0.4秒
-        Tween scale1 = obj.transform.Find("bg").DOScale(1, 0.4f);
+        // 定义第一个缩放动画，目标缩放为1，持续时间0.5秒
+        Tween scale1 = obj.transform.Find("bg").DOScale(1, 0.5f);
         
-        // 定义第二个缩放动画，目标缩放为0，持续时间0.4秒
-        Tween scale2 = obj.transform.Find("bg").DOScale(0, 0.4f);
+        // 定义第二个缩放动画，目标缩放为0，持续时间0.5秒
+        Tween scale2 = obj.transform.Find("bg").DOScale(0, 0.5f);
 
         // 创建一个动画序列
         DG.Tweening.Sequence seq = DOTween.Sequence();
@@ -133,8 +133,8 @@ public class UIManager : MonoBehaviour
         // 将第一个缩放动画添加到序列
         seq.Append(scale1);
         
-        // 在第一个动画结束后，添加一个0.5秒的延迟
-        seq.AppendInterval(0.5f);
+        // 在第一个动画结束后，添加一个1秒的延迟
+        seq.AppendInterval(1.0f);
         
         // 在延迟结束后，添加第二个缩放动画
         seq.Append(scale2);
