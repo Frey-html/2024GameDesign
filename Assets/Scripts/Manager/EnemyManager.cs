@@ -22,10 +22,13 @@ public class EnemyManager
             float x = float.Parse(posArr[0]);
             float y = float.Parse(posArr[1]);
             float z = float.Parse(posArr[2]);
-            Dictionary<string, string> enemyData = GameConfigManager.Instance.GetEnemyById(enemyId);
+            Dictionary<string, string> enemyData = GameConfigManager.Instance.GetEnemyById(enemyId);            
 
+            
             GameObject prefab = Resources.Load<GameObject>(enemyData["Model"]);
-            GameObject obj = Object.Instantiate(prefab, new Vector3(x, y, z), prefab.transform.rotation);
+            prefab.transform.position = new Vector3(x, y, z);
+            CalculateRotation(prefab, Camera.main);
+            GameObject obj = Object.Instantiate(prefab, prefab.transform.position, prefab.transform.rotation);
             Enemy enemy = obj.AddComponent<Enemy>();
             enemyList.Add(enemy);
             enemy.Init(enemyData);
@@ -65,4 +68,28 @@ public class EnemyManager
         //切换到玩家回合
         FightManager.Instance.ChangeType(FightType.Player);
     }
+
+    public void CalculateRotation(GameObject prefab, Camera camera)
+    {
+        // 获取Prefab和Camera的位置
+        Vector3 prefabPosition = prefab.transform.position;
+        Vector3 cameraPosition = camera.transform.position;
+
+        // 计算Prefab到Camera的方向向量
+        Vector3 direction = cameraPosition - prefabPosition;
+
+        // 设置Y轴的方向向量为0，以确保只在XZ平面旋转
+        direction.y = 0;
+
+        // 确保方向向量不为零，以避免异常
+        if (direction != Vector3.zero)
+        {
+            // 计算旋转四元数
+            Quaternion rotation = Quaternion.LookRotation(direction);
+            //旋转
+            prefab.transform.rotation = rotation;
+        }
+    }
 }
+
+
