@@ -69,11 +69,15 @@ public class FightUI : UIBase
     //创建卡牌实体
     public void CreateCardItem(int count)
     {
-        if(count > FightCardManager.Instance.cardList.Count)
-        {
-            count = FightCardManager.Instance.cardList.Count;
-        }
         for(int i = 0; i < count;i++){
+            //如果抽卡过程中抽卡堆为0，则洗牌，将弃牌堆卡牌置入抽排堆
+            if(FightCardManager.Instance.cardList.Count == 0){
+                FightCardManager.Instance.Shuffle();
+                //更新牌堆数量UI
+                UIManager.Instance.GetUI<FightUI>("FightUI").UpdateUsedCardCount();
+                UIManager.Instance.GetUI<FightUI>("FightUI").UpdateCardCount();
+            }
+            
             GameObject obj = Instantiate(Resources.Load("UI/CardItem"), transform) as GameObject;
             obj.GetComponent<RectTransform>().anchoredPosition = new UnityEngine.Vector2(-1000, -700);
             //var item = obj.AddComponent<CardItem>();
@@ -81,8 +85,13 @@ public class FightUI : UIBase
             Dictionary<string, string> data = GameConfigManager.Instance.GetCardById(cardId);
             CardItem item = obj.AddComponent(System.Type.GetType(data["Script"])) as CardItem;
             item.Init(data);
-            cardItemList.Add(item);
+            cardItemList.Add(item); 
         }
+        //更新卡堆UI
+        UIManager.Instance.GetUI<FightUI>("FightUI").UpdateUsedCardCount();
+        UIManager.Instance.GetUI<FightUI>("FightUI").UpdateCardCount();
+        //更新卡牌位置
+        UIManager.Instance.GetUI<FightUI>("FightUI").UpdateCardItemPos();
     }
 
     // 更新卡牌的位置

@@ -12,22 +12,9 @@ public class AddCard:CardItem
         {
             int val = int.Parse(data["Arg0"]);//抽卡数量
 
-            //是否有卡抽
-            if(FightCardManager.Instance.HasCard() == true)
-            {
-                UIManager.Instance.GetUI<FightUI>("FightUI").CreateCardItem(val);
-                UIManager.Instance.GetUI<FightUI>("FightUI").UpdateCardItemPos();
-                UIManager.Instance.GetUI<FightUI>("FightUI").UpdateCardCount();
-
-
-                Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y,2.5f));
-
-                PlayEffect(pos);
-            }
-            else
-            {
-                base.OnEndDrag(eventData);
-            }
+            UIManager.Instance.GetUI<FightUI>("FightUI").CreateCardItem(val);
+            Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y,2.5f));
+            PlayEffect(pos);
         }
         else
         {

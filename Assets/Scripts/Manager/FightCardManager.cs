@@ -47,11 +47,24 @@ public class FightCardManager
     //抽卡
     public string DrawCard()
     {
-        string id = cardList[cardList.Count - 1];
-
-        cardList.RemoveAt(cardList.Count - 1);
-
+        // 检查列表是否为空，如果是则洗牌
+        if (cardList.Count == 0)
+        {
+            Shuffle();
+        }
+        int randomIndex = Random.Range(0, cardList.Count);
+        Debug.Log("从牌堆中抽到卡牌序号：" + randomIndex);
+        string id = cardList[randomIndex];
+        cardList.RemoveAt(randomIndex);
         return id;
+    }
+
+    public void Shuffle()
+    {
+        List<string> temp;
+        temp = cardList;
+        cardList = usedCardList;
+        usedCardList = temp;
     }
 }
 
