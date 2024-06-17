@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 //卡牌战斗初始化
 public class FightInit : FightUnit
 {
+    public int levelId{ get; set; } = 10001;
     public override void Init()
     {
         //初始化战斗数值
@@ -12,8 +14,7 @@ public class FightInit : FightUnit
         //切换bgm
         AudioManager.Instance.PlayBGM("battle");
         //敌人生成
-        EnemyManager.Instance.LoadRes("10003");//此处读取关卡3的敌人信息
-        //初始化战斗卡牌
+        EnemyManager.Instance.LoadRes(levelId.ToString());//读取对应关卡敌人信息
         FightCardManager.Instance.Init();
         //显示战斗界面
         UIManager.Instance.ShowUI<FightUI>("FightUI");
