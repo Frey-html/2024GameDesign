@@ -11,6 +11,11 @@ public class Fight_Loss : FightUnit
         UIManager.Instance.ShowTip("游戏失败", Color.red, delegate ()
         {
             FightManager.Instance.StopAllCoroutines();
+            //切换UI
+            UIManager.Instance.CloseAllUI();
+            UIManager.Instance.ShowUI<LoginUI>("LoginUI");
+            //播放bgm
+            AudioManager.Instance.PlayBGM("bgm1");
         });
     }
 
