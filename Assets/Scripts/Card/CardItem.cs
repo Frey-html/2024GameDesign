@@ -18,9 +18,12 @@ public class CardItem:MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     private int index;
     // 当鼠标进入该 UI 元素时触发
     public void OnPointerEnter(PointerEventData eventData)
-    {
-        // 将该 UI 元素放大到 1.5 倍，并在 0.25 秒内完成放大效果
-        transform.DOScale(1.3f, 0.25f);
+    {   
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        // 将该 UI 元素放大到 1.1 倍，并在 0.25 秒内完成放大效果
+        transform.DOScale(1.1f, 0.25f);
+        rectTransform.DOAnchorPosY(-450, 0.25f);
+        
         // 记录当前 UI 元素在父级中的索引位置
         index = transform.GetSiblingIndex();
         // 将该 UI 元素移动到父级中的最后一个位置，使其显示在最前面
@@ -34,9 +37,12 @@ public class CardItem:MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     // 当鼠标离开该 UI 元素时触发
     public void OnPointerExit(PointerEventData eventData)
     {
+        RectTransform rectTransform = GetComponent<RectTransform>();
         // 将该 UI 元素缩小回原来的大小，并在 0.25 秒内完成缩小效果
         transform.DOScale(1, 0.25f);
         // 将该 UI 元素移动回之前记录的位置
+        rectTransform.DOAnchorPosY(-700, 0.25f);
+        //将UI元素放回原父级位置
         transform.SetSiblingIndex(index);
         // 获取名为 "bg" 的子元素的 Image 组件，并设置其材质的颜色为黑色
         transform.Find("bg").GetComponent<Image>().material.SetColor("_lineColor", Color.black);

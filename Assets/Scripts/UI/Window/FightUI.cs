@@ -155,6 +155,7 @@ public class FightUI : UIBase
     private void onQuitBtn()
     {
         FightManager.Instance.StopAllCoroutines();
+        EnemyManager.Instance.DestroyAllEnemy();
         //返回主界面
         //切换UI
         UIManager.Instance.CloseAllUI();

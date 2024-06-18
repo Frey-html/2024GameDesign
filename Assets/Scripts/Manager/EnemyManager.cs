@@ -35,19 +35,31 @@ public class EnemyManager
         }
     }
 
-    //敌人死亡后移除对应敌人实体
+    //敌人被攻击死亡后移除对应敌人实体
     public void DeleteEnemy(Enemy enemy)
     {
         enemyList.Remove(enemy);
-        //后续做清场判定
-         if(enemyList.Count == 0)
+        enemy.DestroyEnemy();
+        //清场判定
+        if(enemyList.Count == 0)
         {   
             Debug.Log("Call change type to Win from DleteEnemy() in EnemyManager");
             FightManager.Instance.ChangeType(FightType.Win);
         }
     }
 
-      //执行活着的怪物的行为
+    //退出游戏时清除所有怪物实体
+    public void DestroyAllEnemy()
+    {
+        for (int i = enemyList.Count - 1; i >= 0; i--)
+        {
+            Enemy enemy = enemyList[i];
+            enemyList.RemoveAt(i);
+            enemy.DestroyEnemy();
+        }
+    }
+
+    //执行活着的怪物的行为
     public IEnumerator DoAllEnemyAction()
     {   
         Debug.Log("All enemy is prepared to do something...");

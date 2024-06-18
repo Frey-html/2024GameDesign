@@ -139,9 +139,7 @@ public class Enemy : MonoBehaviour
 
                 //敌人从列表中移除
                 EnemyManager.Instance.DeleteEnemy(this);
-                Destroy(gameObject, 1);
-                Destroy(actionObj);
-                Destroy(hpItemObj);
+                DestroyEnemy();
             }
             else
             {
@@ -198,5 +196,12 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(1);
         //继续播放待机动画
         ani.Play("idle");
+    }
+
+    public void DestroyEnemy()
+    {
+        Destroy(gameObject, 1);
+        Destroy(actionObj);
+        Destroy(hpItemObj);
     }
 }
