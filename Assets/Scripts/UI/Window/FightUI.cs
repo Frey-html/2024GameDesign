@@ -146,6 +146,7 @@ public class FightUI : UIBase
         //只有玩家回合才能切换
         if(FightManager.Instance.fightUnit is Fight_PlayerTurn)
         {
+            Debug.Log("Call change type to Enemy from OnChangeTunrBtn in FightUI");
             FightManager.Instance.ChangeType(FightType.Enemy);
         }
     }

@@ -19,6 +19,7 @@ public class LoginUI : UIBase
         Close();
 
         //战斗初始化
+        Debug.Log("Call change type to Init from Init() in LoginUI");
         FightManager.Instance.ChangeType(FightType.Init);
     }
 

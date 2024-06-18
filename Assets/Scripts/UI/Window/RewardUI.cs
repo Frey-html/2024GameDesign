@@ -17,12 +17,24 @@ public class RewardUI : UIBase
 
     private void onSelect1Btn(GameObject obj, PointerEventData pData)
     {
+        FightManager.Instance.GetHealthReward();
+        Close();
+        //进入下一关
+        Debug.Log("Call change type to Init from RewardUI button");
+        FightManager.Instance.ChangeType(FightType.Init);
     }
     private void onSelect2Btn(GameObject obj, PointerEventData pData)
     {
+        FightManager.Instance.GetEnergyReward();
+        Close();
+        Debug.Log("Call change type to Init from RewardUI button");
+        FightManager.Instance.ChangeType(FightType.Init);
     }
     private void onSelect3Btn(GameObject obj, PointerEventData pData)
     {
+        FightManager.Instance.GetDrawCardReward();
+        Close();
+        Debug.Log("Call change type to Init from RewardUI button");
+        FightManager.Instance.ChangeType(FightType.Init);
     }
-
 }

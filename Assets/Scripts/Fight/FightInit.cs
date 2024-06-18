@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 //卡牌战斗初始化
@@ -23,6 +22,7 @@ public class FightInit : FightUnit
         //显示战斗界面
         UIManager.Instance.ShowUI<FightUI>("FightUI");
         //切换到玩家回合
+        Debug.Log("Call change type to Player from Init() in FightInit");
         FightManager.Instance.ChangeType(FightType.Player);
     }
 

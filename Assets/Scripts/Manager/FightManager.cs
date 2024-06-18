@@ -11,7 +11,8 @@ public enum FightType
     Player,//玩家回合
     Enemy,//敌人回合
     Win,
-    Loss
+    Loss,
+    Reward
 }
 
 //战斗管理器
@@ -27,15 +28,24 @@ public class FightManager : MonoBehaviour
     public int MaxPowerCount;//最大能量
     public int CurrentPowerCount;
     public int DefenseCount;//防御值
+    public int DrawCount; //每回合抽卡数
     public int levelId{ get; set; } = 10001; //当前关卡ID
+    public FightType currentType = FightType.None;
 
     //初始化
     public void Init(){
-        MaxHp = 50;
-        CurrentHp = 50;
-        MaxPowerCount = 3;
-        CurrentPowerCount = 3;
-        DefenseCount = 10;
+        if(levelId == 10001)
+        {
+            MaxHp = 50;
+            CurrentHp = 50;
+            MaxPowerCount = 3;
+            CurrentPowerCount = 3;
+            DefenseCount = 10;
+            DrawCount = 3;
+        }else
+        {
+            CurrentPowerCount = MaxPowerCount;
+        }
     }
 
     private void Awake()
@@ -45,7 +55,8 @@ public class FightManager : MonoBehaviour
 
     //切换回合（战斗类型）
     public void ChangeType(FightType type)
-    {
+    {   
+        currentType = type;
         switch(type)
         {
             case FightType.None:
@@ -64,6 +75,12 @@ public class FightManager : MonoBehaviour
                 break;
             case FightType.Loss:
                 fightUnit = new Fight_Loss();
+                break;
+            case FightType.Reward:
+                fightUnit = new Fight_Reward();
+                break;
+            default:
+                Debug.Log("No action in curent fight unit");
                 break;
         }
         fightUnit.Init();//初始化
@@ -101,5 +118,33 @@ public class FightManager : MonoBehaviour
         {
             fightUnit.OnUpdate();
         }
+    }
+
+    public void GetHealthReward()
+    {
+        MaxHp += 20;
+        CurrentHp += 20;
+    }
+
+    public void GetEnergyReward()
+    {
+        MaxPowerCount += 1;
+    }
+
+    public void GetDrawCardReward()
+    {
+        DrawCount += 1;
+    }
+
+    public void FullfillPower()
+    {
+        CurrentPowerCount = MaxPowerCount;
+        UIManager.Instance.GetUI<FightUI>("FightUI").UpdatePower();
+    }
+
+    public void RemoveSheild()
+    {
+        DefenseCount = 0;
+        UIManager.Instance.GetUI<FightUI>("FightUI").UpdateDefense();
     }
 }

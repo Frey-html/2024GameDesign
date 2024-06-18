@@ -29,8 +29,8 @@ public class Fight_Win : FightUnit
             UIManager.Instance.ShowTip("战斗胜利", Color.green, delegate ()
             {
                 FightManager.Instance.StopAllCoroutines();
-                //进入下一关
-                FightManager.Instance.ChangeType(FightType.Init);
+                Debug.Log("Call change type to Reward from Init() in FightWin");
+                FightManager.Instance.ChangeType(FightType.Reward);
             });
         }
     }

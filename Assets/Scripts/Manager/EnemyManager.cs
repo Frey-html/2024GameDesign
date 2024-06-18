@@ -41,7 +41,8 @@ public class EnemyManager
         enemyList.Remove(enemy);
         //后续做清场判定
          if(enemyList.Count == 0)
-        {
+        {   
+            Debug.Log("Call change type to Win from DleteEnemy() in EnemyManager");
             FightManager.Instance.ChangeType(FightType.Win);
         }
     }
@@ -59,14 +60,16 @@ public class EnemyManager
             yield return FightManager.Instance.StartCoroutine(enemyList[i].DoAction());
         }
 
-        //行动完后，更新所有敌人行为
-        for(int i = 0; i < enemyList.Count;i++)
-        {
-            enemyList[i].SetRandomAction();
+        if(enemyList.Count > 0){
+            //行动完后，更新所有敌人行为
+            for(int i = 0; i < enemyList.Count;i++)
+            {
+                enemyList[i].SetRandomAction();
+            }
+            //切换到玩家回合
+            Debug.Log("Call change type to Player from DoAllEnemyAction() in EnemyManager");
+            FightManager.Instance.ChangeType(FightType.Player);
         }
-
-        //切换到玩家回合
-        FightManager.Instance.ChangeType(FightType.Player);
     }
 
     public void CalculateRotation(GameObject prefab, Camera camera)

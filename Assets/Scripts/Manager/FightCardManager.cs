@@ -53,7 +53,7 @@ public class FightCardManager
             Shuffle();
         }
         int randomIndex = Random.Range(0, cardList.Count);
-        Debug.Log("从牌堆中抽到卡牌序号：" + randomIndex);
+        //Debug.Log("从牌堆中抽到卡牌序号：" + randomIndex);
         string id = cardList[randomIndex];
         cardList.RemoveAt(randomIndex);
         return id;
