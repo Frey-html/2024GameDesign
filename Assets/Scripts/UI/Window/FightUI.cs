@@ -24,6 +24,7 @@ public class FightUI : UIBase
         hpImg = transform.Find("hp/fill").GetComponent<Image>();
         fyTxt = transform.Find("hp/fangyu/Text").GetComponent<Text>();
         transform.Find("turnBtn").GetComponent<Button>().onClick.AddListener(onChangeTurnBtn);
+        transform.Find("quitBtn").GetComponent<Button>().onClick.AddListener(onQuitBtn);
     }
 
     private void Start()
@@ -149,5 +150,16 @@ public class FightUI : UIBase
             Debug.Log("Call change type to Enemy from OnChangeTunrBtn in FightUI");
             FightManager.Instance.ChangeType(FightType.Enemy);
         }
+    }
+
+    private void onQuitBtn()
+    {
+        FightManager.Instance.StopAllCoroutines();
+        //返回主界面
+        //切换UI
+        UIManager.Instance.CloseAllUI();
+        UIManager.Instance.ShowUI<LoginUI>("LoginUI");
+        //播放bgm
+        AudioManager.Instance.PlayBGM("bgm1");
     }
 }

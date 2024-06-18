@@ -20,6 +20,8 @@ public class LoginUI : UIBase
 
         //战斗初始化
         Debug.Log("Call change type to Init from Init() in LoginUI");
+        //重新初始化关卡与战斗数据（保证退出到login界面后重新开始游戏加载正常）
+        FightManager.Instance.Init();
         FightManager.Instance.ChangeType(FightType.Init);
     }
 

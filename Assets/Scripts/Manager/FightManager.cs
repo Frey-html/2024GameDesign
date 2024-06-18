@@ -32,25 +32,22 @@ public class FightManager : MonoBehaviour
     public int levelId{ get; set; } = 10001; //当前关卡ID
     public FightType currentType = FightType.None;
 
-    //初始化
-    public void Init(){
-        if(levelId == 10001)
-        {
-            MaxHp = 50;
-            CurrentHp = 50;
-            MaxPowerCount = 3;
-            CurrentPowerCount = 3;
-            DefenseCount = 10;
-            DrawCount = 3;
-        }else
-        {
-            CurrentPowerCount = MaxPowerCount;
-        }
+    //初始化函数
+    public void Init()
+    {
+        levelId = 10001;
+        MaxHp = 50;
+        CurrentHp = 50;
+        MaxPowerCount = 3;
+        CurrentPowerCount = 3;
+        DefenseCount = 10;
+        DrawCount = 3;
     }
 
     private void Awake()
     {
         Instance = this;
+        Init();
     }
 
     //切换回合（战斗类型）

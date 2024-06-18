@@ -9,8 +9,6 @@ public class FightInit : FightUnit
 {
     public override void Init()
     {
-        //初始化战斗数值
-        FightManager.Instance.Init();
         //切换bgm
         AudioManager.Instance.PlayBGM("battle");
         //获得当前关卡序号
@@ -18,6 +16,7 @@ public class FightInit : FightUnit
         
         //敌人生成
         EnemyManager.Instance.LoadRes(levelId.ToString());//读取对应关卡敌人信息
+        
         FightCardManager.Instance.Init();
         //显示战斗界面
         UIManager.Instance.ShowUI<FightUI>("FightUI");
