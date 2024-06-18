@@ -47,4 +47,10 @@ public class GameConfigData
         }
         return null;
     }
+
+    public int GetMaxId()
+    {
+        int i = dataDic.Count - 1;
+        return int.Parse(dataDic[i]["Id"]);
+    }
 }

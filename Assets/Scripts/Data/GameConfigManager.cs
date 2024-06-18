@@ -65,4 +65,9 @@ public class GameConfigManager
     public Dictionary<string, string> GetCardTypeById(string id){
         return cardTypeData.GetOneById(id);
     }
+
+    public int GetMaxLevelId()
+    {
+        return levelData.GetMaxId();
+    }
 }

@@ -27,6 +27,7 @@ public class FightManager : MonoBehaviour
     public int MaxPowerCount;//最大能量
     public int CurrentPowerCount;
     public int DefenseCount;//防御值
+    public int levelId{ get; set; } = 10001; //当前关卡ID
 
     //初始化
     public void Init(){
